@@ -2,6 +2,8 @@
 var fs = require('fs');
 var assert = require('assert');
 
+var invalidFormatMessage = "Data file is not properly formatted." 
+
 var getKey = function(str) {
     return str.split(',')[0];
 }
@@ -19,6 +21,8 @@ var reducer = function(acc, item) {
 
 var test_getCount = function() {
     assert.ok( getCount("key,1") == 1, "should parse count");    
+    assert.throws(function() { getCount("key,a"); }, invalidFormatMessage);
+
 }
 var test_reducer = function() {
   var lines = [];
