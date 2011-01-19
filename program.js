@@ -37,23 +37,26 @@ var test_reducer = function() {
   assert.ok(result["Jane"] == 8, "total for Jane should be 8");  
 }
 
-
 var reduceFileData = function(data) {    
   var lines = data.split('\n');
-  console.log(lines);
-
-  var result = lines.reduce(reducer, {});
-  console.log(result);
-  
-    
+  return lines.reduce(reducer, {});
 }
 
+var write = process.stdout.write;
 var displaySummary = function(summary) {
-  process.stdout.write("The total for John is " + summary["John"] + ".");
-  process.stdout.write("The total for Jane is " + summary["Jane"] + ".");
+  write("The total for John is " + summary["John"] + ".");
+  write("The total for Jane is " + summary["Jane"] + ".");
 }
 
+var test_displaySummary = function(summary) {
+  var data = [];
+  write = function(msg) { data.push(msg); }
+  displaySummary( { John:6 } );
+  assert.ok(data.length == 1)
+  assert.ok(data[0] == "The total for John is 6.");
+}
 
+test_displaySummary();
 test_getCount();
 test_reducer();
 
