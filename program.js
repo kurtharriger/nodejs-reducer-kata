@@ -8,7 +8,9 @@ var getKey = function(str) {
     return str.split(',')[0];
 }
 var getCount = function(str) {
-    return parseInt(str.split(',')[1]);
+    var count = parseInt(str.split(',')[1]);
+    if(count > 0) return count;
+    else throw invalidFormatMessage; 
 }
 
 // reduce list of key,count into map[key] = total
