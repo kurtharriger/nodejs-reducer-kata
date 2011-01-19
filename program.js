@@ -2,7 +2,7 @@
 var fs = require('fs');
 var assert = require('assert');
 
-var invalidFormatMessage = "Data file is not properly formatted." 
+var invalidFormatMessage = "Data file is not properly formatted.";
 
 var getKey = function(str) {
     return str.split(',')[0];
