@@ -2,13 +2,25 @@
 var fs = require('fs');
 var assert = require('assert');
 
+var getKey = function(str) {
+    return str.split(',')[0];
+}
+var getCount = function(str) {
+    return parseInt(str.split(',')[1]);
+}
 
 // reduce list of key,count into map[key] = total
 var reducer = function(acc, item) {
-    
+  var key = getKey(item);
+  var count = getCount(item);
+  acc[key] = (acc[key] || 0) + count;
+  return acc;   
 }
 
-var testReducer = function() {
+var test_getCount = function() {
+    assert.ok( getCount("key,1") == 1, "should parse count");    
+}
+var test_reducer = function() {
   var lines = [];
   lines.push("John,2");
   lines.push("Jane,3");
@@ -36,7 +48,8 @@ var displaySummary = function(summary) {
 }
 
 
-testReducer();
+test_getCount();
+test_reducer();
 
 /*
   fs.readFile('data.txt', 'utf-8', function(err, data) {
