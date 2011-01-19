@@ -44,17 +44,21 @@ var reduceFileData = function(data) {
 
 var write = process.stdout.write;
 var displaySummary = function(summary) {
-  write("The total for John is " + summary["John"] + ".");
-  write("The total for Jane is " + summary["Jane"] + ".");
+  for(key in summary) {
+      write("The total for " + key + " is " + summary[key] + ".");
+  }
 }
 
 var test_displaySummary = function(summary) {
   var data = [];
   write = function(msg) { data.push(msg); }
-  displaySummary( { John:6 } );
-  assert.ok(data.length == 1)
-  assert.ok(data[0] == "The total for John is 6.");
+  displaySummary( { A:1, B:2, C:3 } );
+  assert.ok(data.length == 3)
+  assert.ok(data[0] == "The total for A is 1."); 
+  assert.ok(data[1] == "The total for B is 2.");
+  assert.ok(data[2] == "The total for C is 3.");
 }
+
 
 test_displaySummary();
 test_getCount();
